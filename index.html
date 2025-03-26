@@ -49,6 +49,7 @@
           <img class="vector-6" src="https://c.animaapp.com/MS0A03wW/img/vector-7.svg" />
           <div class="rectangle-10"></div>
           <div class="rectangle-11"></div>
+         <!-- box behind the parteners -->
           <div class="rectangle-12"></div>
           <div class="group">
             <img class="image" src="images/Harvesting.png" />
@@ -58,7 +59,14 @@
               <span class="text-wrapper-28">total lbs harvested!</span>
             </p>
           </div>
-          <img class="screenshot" src="https://c.animaapp.com/MS0A03wW/img/screenshot-2025-02-24-at-5-06-28-pm-1.png" />
+          <!-- SPONSOR IMAGE -->
+          <img class = "sponsor1" src ="images/PSUextension.png"/>
+          <img class="sponsor2" src= "images/ACLAMOlogo.svg" />
+          <img class = "sponsor3" src ="images/Victory-Church_Logo.png"/>
+          <img class = "sponsor4" src ="images/Villanova.png"/>
+        
+
+
           <div class="overlap-group-wrapper">
             <div class="overlap-6">
               <img class="image-2" src="images/Serving.png" />
@@ -66,7 +74,7 @@
             </div>
           </div>
           <p class="CROP-VARIETIES-YEAR">
-            <span class="text-wrapper-29">CROP VARIETIES<br /></span> <span class="text-wrapper-30">YEAR TO YEAR</span>
+            <span class="text-wrapper-29">PARTNERS<br /></span>
           </p>
           <!-- TOP PRODUCE IN 2024 IMAGE -->
           <img class="group-2" src="https://c.animaapp.com/MS0A03wW/img/group-3-1.png" />
@@ -90,10 +98,9 @@
           <div class="text-wrapper-31">OUR MISSION</div>
         </div>
         <div class="text-wrapper-32">OUR ANNUAL IMPACT</div>
-        <p class="p">was the total dollar value of our harvest in 2024</p>
+        <p class="p">servings of produce provided to our community in 2024</p>
         <p class="text-wrapper-33">of healthy farm fresh produce grown in 2024</p>
-        <p class="text-wrapper-34">of native flowers, trees, and shrubs planted on our farm</p>
-        <p class="text-wrapper-35">servings of produce provided to our community in 2024</p>
+        <p class="text-wrapper-34">native flowers, trees, and shrubs planted on our farm</p>
         <img class="line-19" src="https://c.animaapp.com/MS0A03wW/img/line-2.svg" />
         <img class="line-20" src="https://c.animaapp.com/MS0A03wW/img/line-3.svg" />
         <div class="overlap-10">
@@ -101,15 +108,15 @@
           
         </div>
         <div class="overlap-11">
+          <img class = "logo" src = "images/logo.png">
+        </div>
+        <div class="overlap-12">
           <div class="text-wrapper-37">1,700</div>
           <div class="text-wrapper-38">Over</div>
         </div>
-        <div class="overlap-12">
-          <div class="text-wrapper-37">105,000</div>
-          <div class="text-wrapper-38">Over</div>
-        </div>
+        
         <div class="text-wrapper-39">Over</div>
-        <div class="overlap-13"><div class="text-wrapper-40">$38,890.36</div></div>
+        <div class="overlap-13"><div class="text-wrapper-40">105,000+</div></div>
         <div class="overlap-14">
           <!-- Image behind the facts -->
           <img class="group-4" src="https://c.animaapp.com/MS0A03wW/img/group-3.png" />
@@ -158,10 +165,49 @@
       </div>
     </div>
     <script>
-      /* 
-      Code for the barchart, edit the commented lines as needed for data (more at line 266)
-      */
+     
+//HERE IS WHERE YOU WOULD UPDATE THE DATA, READ THE COMMENTS CAREFULLY
+
       document.addEventListener('DOMContentLoaded', function () {
+       /* 
+        Code for the doughnut chart, edit the commented lines as needed for data
+       */ 
+        const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+        let doughnutChart = new Chart(doughnutCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Vegetables', 'Fruits', 'Peppers'],
+            datasets: [{
+              data: [50, 30, 20], // INPUT RATIO FOR THE VEGETABLES, FRUITS, AND PEPPERS IN THAT ORDER
+              backgroundColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 0.7)', 'rgba(66, 57, 46, 0.7)'],
+              borderColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 1)', 'rgba(66, 57, 47, 0.7)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  
+                  label: function(tooltipItem) {
+                    let total = tooltipItem.dataset.data.reduce((sum, value) => sum + value, 0);
+                    let value = tooltipItem.raw;
+                    let percentage = ((value / total) * 100).toFixed(2);
+                    return ` ${percentage}%`; 
+                  }
+                }
+              }
+            }
+          }
+        });
+
+
+        /* 
+        Code for the barchart, edit the commented lines as needed for data
+        */ 
         const ctx = document.getElementById('histogram').getContext('2d');
         document.getElementById('histogram').style.backgroundColor = 'white';
         let chart = new Chart(ctx, {
@@ -170,7 +216,7 @@
             labels: ['2022', '2023', '2024'],
             datasets: [{
               label: 'lbs harvest, in thousands',
-              data: [12, 19, 3, 5, 2, 3, 8, 15, 13, 10, 5, 7], // Initial data ("ALL" section of bar chart) If change make sure it matches the values of the switch case's "ALL"
+              data: [12, 19, 3], // Initial data ("ALL" section of bar chart) If change make sure it matches the values of the switch case's "ALL"
               backgroundColor: 'rgba(107, 142, 35)',
             }]
           },
@@ -232,27 +278,6 @@
           }
         });
 
-      /* 
-      Code for the barchart, edit the commented lines as needed for data
-      */ 
-        const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
-        let doughnutChart = new Chart(doughnutCtx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Vegetables', 'Fruits', 'Peppers'],
-            datasets: [{
-              data: [50, 30, 20], // INPUT RATIO FOR THE VEGETABLES, FRUITS, AND PEPPERS IN THAT ORDER
-              backgroundColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 0.7)', 'rgba(66, 57, 46, 0.7)'],
-              borderColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 1)', 'rgba(66, 57, 47, 0.7)'],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '70%', 
-          }
-        });
  
         const buttons = document.querySelectorAll('.frame button');
         
@@ -269,17 +294,21 @@
             let newData = [];
             switch (chartType) {
               case 'vegetables':
-                newData = [10,15,12]; //INPUT DATA FOR VEGETABLES AS NEEDED
+              // (first number is the 2022, second is 2023, and third is 2024 )
+                newData = [10,15,12]; //INPUT DATA FOR VEGETABLES AS NEEDED 
                 break;
               case 'peppers':
-                newData = [5, 8, 12, 9, 4, 6, 7, 10, 3, 6, 8, 5]; //INPUT DATA FOR PEPPERS AS NEEDED
+                 // (first number is the 2022, second is 2023, and third is 2024 )
+                newData = [5, 8, 12]; //INPUT DATA FOR PEPPERS AS NEEDED
                 break;
               case 'fruits':
-                newData = [12, 14, 16, 18, 22, 20, 25, 27, 30, 31, 28, 35]; //INPUT DATA FOR FRUITS AS NEEDED
+                 // (first number is the 2022, second is 2023, and third is 2024 )
+                newData = [12, 14, 16]; //INPUT DATA FOR FRUITS AS NEEDED
                 break;
               case 'all':
               default:
-                newData = [12, 19, 3, 5, 2, 3, 8, 15, 13, 10, 5, 7]; //INPUT DATA FOR ALL AS NEEDED (MAKE SURE IT MATCHES THE ALL IN THE INITIAL DATA ABOVE)
+                 // (first number is the 2022, second is 2023, and third is 2024 )
+                newData = [12, 19, 3]; //INPUT DATA FOR ALL AS NEEDED (MAKE SURE IT MATCHES THE ALL IN THE INITIAL DATA ABOVE)
                 break;
             }
             updateChartData(chart, newData);
