@@ -191,10 +191,23 @@
   width: 691px;
   top: 24px;
   left: 0;
-  font-family: "Lato", Helvetica;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: #ffffff;
   font-size: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.main-page .quote-card {
+  position: absolute;
+  width: 300px;
+  top: 160px;
+  left: 50px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
   letter-spacing: 0;
   line-height: normal;
 }
@@ -573,10 +586,10 @@
   width: 1641px;
   top: 130px;
   left: 38px;
-  font-family: "Lato", Helvetica;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: #ffffff;
-  font-size: 28px;
+  font-size: 26px;
   letter-spacing: 0;
   line-height: normal;
 }
@@ -807,6 +820,7 @@
 
 .main-page .group-4 {
   position: absolute;
+  object-fit: cover;
   width: 1728px;
   height: 638px;
   top: 260px;
