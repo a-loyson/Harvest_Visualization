@@ -266,6 +266,22 @@
   background-color: #40362a;
 }
 
+.main-page .sprout {
+  position: absolute;
+  width: 140px;
+  height: 131px;
+  top: 351px;
+  left: 792px;  
+}
+
+.main-page .vector-0 {
+  position: absolute;
+  width: 10px;
+  height: 107px;
+  top: 0px;
+  left: 863px;
+}
+
 .main-page .vector {
   position: absolute;
   width: 128px;
@@ -616,12 +632,12 @@
 .main-page .at-martha-s-we {
   position: absolute;
   width: 1641px;
-  top: 130px;
+  top: 125px;
   left: 38px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: #ffffff;
-  font-size: 26px;
+  font-size: 25px;
   letter-spacing: 0;
   line-height: normal;
 }
