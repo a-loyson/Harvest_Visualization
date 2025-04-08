@@ -476,13 +476,13 @@
 
 .main-page .x-servings-of-food {
   position: absolute;
-  width: 406px;
-  top: 497px;
-  left: 49px;
+  width: 547px;
+  top: 475px;
+  left: 0;
   font-family: "Inter", Helvetica;
-  font-weight: 500;
+  font-weight: 400;
   color: #000000;
-  font-size: 30px;
+  font-size: 46px;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
