@@ -8,6 +8,95 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .podium-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 40px;
+        margin-top: 30px;
+        height: 300px;
+      }    
+      .podium {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        border-radius: 10px 10px 0 0;
+        background-color: #a79993;
+        color: white;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        width: 100px;
+        position: relative;
+      }
+
+      .first {
+        height: 180px;
+        background-color: #6b8e23;
+      }
+
+      .second {
+        height: 130px;
+        background-color: #8b8b8b;
+      }
+
+      .third {
+        height: 100px;
+        background-color: #cd7f32;
+      }
+
+      .label {
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 16px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .ranking {
+        position: absolute;
+        top: -25px;
+        font-size: 18px;
+        color: black;
+      }
+
+      .toggle-buttons {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .toggle-buttons button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        background-color: #6b8e23;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+      }
+
+      .toggle-buttons button.active {
+        background-color: #4e6820;
+      }
+
+      h1 {
+        text-align: center;
+        font-family: 'Lato', sans-serif;
+        color: black;
+        margin-top: 20px;
+      }
+
+      #mode-label {
+        text-align: center;
+        font-family: 'Lato', sans-serif;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
     <div class="main-page">
@@ -82,7 +171,29 @@
             <span class="text-wrapper-29">PARTNERS<br /></span>
           </p>
           <!-- TOP PRODUCE IN 2024 IMAGE -->
-          <img class="group-2" src="https://c.animaapp.com/MS0A03wW/img/group-3-1.png" />
+          <div class="group-2">
+            <div class="rectangle-17"></div>
+           <!-- <div class= "h1">TOP PRODUCE IN 2024</h1> -->
+            <div class="toggle-buttons">
+              <button id="servings-btn" class="active">By Serving Size</button>
+              <button id="pounds-btn">By Pounds</button>
+            </div>
+          
+            <div class="podium-container" id="podium">
+              <div class="podium second">
+                <div class="ranking">2nd</div>
+                <div class="label" id="second-label">Blackberries</div>
+              </div>
+              <div class="podium first">
+                <div class="ranking">1st</div>
+                <div class="label" id="first-label">Shiitake Mushrooms</div>
+              </div>
+              <div class="podium third">
+                <div class="ranking">3rd</div>
+                <div class="label" id="third-label">Radishes and Tomatoes</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="overlap-7">
             <canvas id="doughnutChart" width="562" height="543"></canvas>
@@ -310,6 +421,48 @@
           });
         });
       });
+
+      const servings = [
+    'Shiitake Mushrooms',
+    'Blackberries',
+    'Radishes and Tomatoes'
+  ];
+  const pounds = [
+    'Sweet Potatoes',
+    'Jalapeño Peppers',
+    'Poblano Peppers'
+  ];
+
+  const firstLabel = document.getElementById('first-label');
+  const secondLabel = document.getElementById('second-label');
+  const thirdLabel = document.getElementById('third-label');
+  const servingsBtn = document.getElementById('servings-btn');
+  const poundsBtn = document.getElementById('pounds-btn');
+  const modeLabel = document.getElementById('mode-label');
+
+  function updateLabels(data) {
+    firstLabel.textContent = data[0];
+    secondLabel.textContent = data[1];
+    thirdLabel.textContent = data[2];
+  }
+
+  function setModeLabel(mode) {
+    modeLabel.textContent = `Viewing: ${mode}`;
+  }
+
+  servingsBtn.addEventListener('click', () => {
+    servingsBtn.classList.add('active');
+    poundsBtn.classList.remove('active');
+    updateLabels(servings);
+    setModeLabel('By Serving Size');
+  });
+
+  poundsBtn.addEventListener('click', () => {
+    poundsBtn.classList.add('active');
+    servingsBtn.classList.remove('active');
+    updateLabels(pounds);
+    setModeLabel('By Pounds');
+  });
     </script>
   </body>
 </html>

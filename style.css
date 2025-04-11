@@ -1027,3 +1027,14 @@
   top: 2813px;
   left: 1092px;
 }
+
+.main-page .rectangle-17 {
+  position: absolute;
+  width: 810px;
+  height: 669px;
+  top: 3px;
+  left: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 20px 4px #00000040;
+}
