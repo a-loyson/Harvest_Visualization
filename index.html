@@ -10,6 +10,78 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    <script>
+      // HERE IS WHERE YOU CAN UPDATE THE DATA
+      
+      //UPDATE THE YEAR FOR THE PAGE (EXCLUDING THE HISTOGRAM YEARS)
+      const year = '2024';
+
+      //UPDATE DATA FOR THE TOP PORTION OF THE PAGE (IN THE WHITE AREA)
+      //of healthy farm fresh produce grown 
+      const grown = '7,900'
+      //native flowers, trees, and shrubs planted on our farm
+      const planted = '1,700';
+      //servings of produce provided to our community in 2024
+      const servingsProvided = '178,169+';
+
+
+
+      //UPDATED THE VALUES IN THE PODIUM 
+      const podiumData = {
+        //TOP PRODUCE IN POUNDS
+        lbs: [
+          //FIRST
+          { name: 'Sweet Potatoes'},
+          //SECOND
+          { name: 'Jalepeno Peppers'},
+          //THIRD
+          { name: 'Poblano Peppers'}
+        ],
+        //TOP PRODUCE IN SERVING SIZE
+        servings: [
+          //FIRST
+          { name: 'Shiitake Mushrooms' },
+          //SECOND
+          { name: 'Blackberries' },
+          //THIRD
+          { name: 'Radishes and Tomatoes'}
+        ]
+      };
+
+      //UPDATE VALUES FOR THE AREAS INSIDE THE BROWN AREA
+      // Total servings of produced
+      const servings = '242,681'; 
+      //Total pounds harvested
+      const harvested = '27,867';
+      
+      //ADJUST HISTOGRAM YEARS
+      const chartYears = ['2022', '2023', '2024']; 
+
+      // Data for the doughnut and histogram
+      const chartData = {
+        doughnut: {
+          labels: ['Vegetables', 'Fruits', 'Peppers'],
+          values: [50, 30, 20], // <== Adjust values for doughnut chart (Put them in order of vegetables, fruits, and peppers]
+        },
+
+        //DATA FOR THE HISTOGRAM
+        bar: { // lbs harvest (2022, 2023, 2024); IN THOUSANDS
+          //Place the values in order of 2022, 2023, and 2024
+          all: [12, 19, 3],        
+          vegetables: [10, 15, 12],
+          peppers: [5, 8, 12],
+          fruits: [12, 14, 16],
+        }
+      };
+
+      //UPDATE THE FUN FACTS AT THE BOTTOM OF THE PAGE
+      const fact1 = "In 2024, we grew over 20 different varieties of vegetables, fruits, and herbs!";
+      const fact2 = "Sweet potatoes were almost 40% of 2024's total harvest poundage!";
+      const fact3 = "Aside from assorted peppers, the Farm grew 12 different species of pepper in 2024!";
+    </script>
+
+
+    <!-- ACTUAL CODE FOR THE WEBSITE -->
     <div class="main-page">
       <div class="div">
         <div class="overlap">
@@ -56,7 +128,7 @@
           <div class="group">
             <img class="image" src="images/Harvesting.png" />
             <p class="element-total-lbs">
-              <span class="span">27,867</span>
+              <span class="span"><span id="harvested"></span></span>
               <span class="text-wrapper-27"> <br /></span>
               <span class="text-wrapper-28">total lbs harvested!</span>
             </p>
@@ -70,18 +142,54 @@
           <div class="overlap-group-wrapper">
             <div class="overlap-6">
               <img class="image-2" src="images/Serving.png" />
-              <div class="x-servings-of-food">X servings of food<br />produced!</div>
+              <div class="x-servings-of-food">
+                <span class="span"><span id="servings"></span></span>
+                <span class="text-wrapper-27"><br /></span>
+                <span class="text-wrapper-28">total servings produced!</span>
+              </div>
             </div>
           </div>
+                
+
           <p class="CROP-VARIETIES-YEAR">
             <span class="text-wrapper-29">PARTNERS<br /></span>
           </p>
+
           <!-- TOP PRODUCE IN 2024 IMAGE -->
-          <img class="group-2" src="https://c.animaapp.com/MS0A03wW/img/group-3-1.png" />
+          <div class="group-2">
+            <div class="rectangle-17">
+                <span class="text-wrapper-29">TOP PRODUCE IN <span id="year"></span><br /></span>
+              <!-- Podium Tabs (Pounds / Serving Size) -->
+              <div class="podium-tabs">
+                <button class="tab-lbs" data-type="lbs">Pounds</button>
+                <button class="tab-servings" data-type="servings">Serving Size</button>
+              </div>
+          
+              <!-- Podium Container where Produce will be displayed -->
+              <div class="podium-container">
+                <div class="podium second">
+                  <div class="produce" id="second-name">Tomatoes</div>  <!-- This element will be updated by JS -->
+                  <div class="place">2nd</div>
+                </div>
+                <div class="podium first">
+                  <div class="produce" id="first-name">Sweet Potatoes</div>  <!-- This element will be updated by JS -->
+                  <div class="place">1st</div>
+                </div>
+                <div class="podium third">
+                  <div class="produce" id="third-name">Peppers</div>  <!-- This element will be updated by JS -->
+                  <div class="place">3rd</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
+
+
         <div class="overlap-7">
-            <canvas id="doughnutChart" width="562" height="543"></canvas>
+          <canvas id="doughnutChart" width="562" height="543"></canvas>
           <div class="CURRENT-PRODUCE">CURRENT<br />PRODUCE<br />DISTRIBUTION</div>
+          <div class="hover">Hover to see distribution</div>
         </div>
         <img class="line-18" src="https://c.animaapp.com/MS0A03wW/img/line-1.svg" />
         <div class="overlap-8">
@@ -100,25 +208,25 @@
           <div class="text-wrapper-31">OUR MISSION</div>
         </div>
         <div class="text-wrapper-32">OUR ANNUAL IMPACT</div>
-        <p class="p">servings of produce provided to our community in 2024</p>
-        <p class="text-wrapper-33">of healthy farm fresh produce grown in 2024</p>
+        <p class="p">servings of produce provided to our community in <span id = "servingsYear"></span></p>
+        <p class="text-wrapper-33">of healthy farm fresh produce grown in <span id = "plantedYear"></p>
         <p class="text-wrapper-34">native flowers, trees, and shrubs planted on our farm</p>
         <img class="line-19" src="https://c.animaapp.com/MS0A03wW/img/line-2.svg" />
         <img class="line-20" src="https://c.animaapp.com/MS0A03wW/img/line-3.svg" />
         <div class="overlap-10">
-          <div class="text-wrapper-36">7,900 lbs</div>
+          <div class="text-wrapper-36"><span id = "grown"></span> lbs</div>
           
         </div>
         <div class="overlap-11">
           <img class = "logo" src = "images/logo.png">
         </div>
         <div class="overlap-12">
-          <div class="text-wrapper-37">1,700</div>
+          <div class="text-wrapper-37"><span id = "planted"></span></div>
           <div class="text-wrapper-38">Over</div>
         </div>
         
         <div class="text-wrapper-39">Over</div>
-        <div class="overlap-13"><div class="text-wrapper-40">105,000+</div></div>
+        <div class="overlap-13"><div class="text-wrapper-40"><span id = "servingsProvided"></span></div></div>
         <div class="overlap-14">
           <!-- Image behind the facts -->
           <img class="group-4" src="images/foodforest-4.jpg"/>
@@ -126,7 +234,7 @@
             <div class="overlap-15">
               <div class="rectangle-14">
                 <!-- Insert middle card text in line below -->
-                 <div class="quote-card">Martha's Choice Marketplace and Community Farm is the largest food pantry in Montgomery County, PA.</div>
+                 <div class="quote-card"><span id = fact1></div>
               </div>
               <div class="view"><div class="text-wrapper-41">“</div></div>
             </div>
@@ -135,7 +243,7 @@
             <div class="overlap-15">
               <div class="rectangle-15"> 
                 <!-- Insert leftmost card text in line below -->
-                <div class="quote-card">Sweet potatoes were almost 40% of 2024's total harvest poundage!</div>
+                <div class="quote-card"><span id = fact2></div>
               </div>
               <div class="view"><div class="text-wrapper-41">“</div></div>
             </div>
@@ -144,7 +252,7 @@
             <div class="overlap-15">
               <div class="rectangle-16">
                  <!-- Insert rightmost card text in line below -->
-                  <div class="quote-card">Aside from assorted peppers, the Farm grew 12 different species of pepper in 2024!</div>
+                  <div class="quote-card"><span id = fact3></div>
               </div>
               <div class="view"><div class="text-wrapper-41">“</div></div>
             </div>
@@ -155,20 +263,15 @@
       </div>
     </div>
     <script>
-     
-//HERE IS WHERE YOU WOULD UPDATE THE DATA, READ THE COMMENTS CAREFULLY
-
       document.addEventListener('DOMContentLoaded', function () {
-       /* 
-        Code for the doughnut chart, edit the commented lines as needed for data
-       */ 
+        // Doughnut Chart
         const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
-        let doughnutChart = new Chart(doughnutCtx, {
+        const doughnutChart = new Chart(doughnutCtx, {
           type: 'doughnut',
           data: {
-            labels: ['Vegetables', 'Fruits', 'Peppers'],
+            labels: chartData.doughnut.labels,
             datasets: [{
-              data: [50, 30, 20], // INPUT PERCENT RATIO FOR THE VEGETABLES, FRUITS, AND PEPPERS IN THAT ORDER
+              data: chartData.doughnut.values,
               backgroundColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 0.7)', 'rgba(66, 57, 46, 0.7)'],
               borderColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 1)', 'rgba(66, 57, 47, 0.7)'],
               borderWidth: 1
@@ -179,132 +282,126 @@
             maintainAspectRatio: false,
             cutout: '70%',
             plugins: {
-              tooltip: {
-                callbacks: {
-                  
-                  label: function(tooltipItem) {
-                    let total = tooltipItem.dataset.data.reduce((sum, value) => sum + value, 0);
-                    let value = tooltipItem.raw;
-                    let percentage = ((value / total) * 100).toFixed(2);
-                    return ` ${percentage}%`; 
-                  }
-                }
-              }
-            }
-          }
-        });
-
-
-        /* 
-        Code for the barchart, edit the commented lines as needed for data
-        */ 
-        const ctx = document.getElementById('histogram').getContext('2d');
-        document.getElementById('histogram').style.backgroundColor = 'white';
-        let chart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['2022', '2023', '2024'],
-            datasets: [{
-              label: 'lbs harvest, in thousands',
-              data: [12, 19, 3], // Initial data ("ALL" section of bar chart) If change make sure it matches the values of the switch case's "ALL"
-              backgroundColor: 'rgba(107, 142, 35)',
-            }]
-          },
-          options: {
-            responsive: true, 
-            maintainAspectRatio: false,
-            plugins: {
               legend: {
                 labels: {
                   font: {
-                    family: 'Lato, Helvetica, sans-serif', 
-                    size: 20, 
+                    size: 20, // 👈 Increase this number to make it larger
+                    family: 'Lato, Helvetica, sans-serif',
                     weight: 'bold'
                   }
                 }
               },
-            tooltip: {
-              backgroundColor: 'rgba(0,0,0,0.7)', 
-              titleFont: {
-                family: 'Lato, Helvetica, sans-serif', 
-                size: 15,
-                weight: 'bold'
+              tooltip: {
+                callbacks: {
+                  label: function(tooltipItem) {
+                    const total = tooltipItem.dataset.data.reduce((sum, val) => sum + val, 0);
+                    const value = tooltipItem.raw;
+                    const percentage = ((value / total) * 100).toFixed(2);
+                    return ` ${percentage}%`;
+                  }
+                }
               },
-              bodyFont: {
-                family: 'Lato, Helvetica, sans-serif', 
-                size: 20
-              },
-              cornerRadius: 5 
             }
+          }
+        });
+        
+        
+        // Bar Chart
+        const barCtx = document.getElementById('histogram').getContext('2d');
+        document.getElementById('histogram').style.backgroundColor = 'white';
+        const barChart = new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: chartYears,
+            datasets: [{
+              label: 'lbs harvest, in thousands',
+              data: chartData.bar.all,
+              backgroundColor: 'rgba(107, 142, 35)',
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  font: { family: 'Lato, Helvetica, sans-serif', size: 20, weight: 'bold' }
+                }
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                titleFont: { family: 'Lato, Helvetica, sans-serif', size: 15, weight: 'bold' },
+                bodyFont: { family: 'Lato, Helvetica, sans-serif', size: 20 },
+                cornerRadius: 5
+              }
             },
             scales: {
               y: {
                 beginAtZero: true,
                 ticks: {
-                  font: {
-                    family: 'Lato, Helvetica, sans-serif', 
-                    size: 15
-                  }
+                  font: { family: 'Lato, Helvetica, sans-serif', size: 15 },
+              
                 }
               },
-              x:{
+              x: {
                 ticks: {
-                  font: {
-                    family: 'Lato, Helvetica, sans-serif', 
-                    size: 20,
-                    weight: 'bold'
-                  }
-                },
-                layout:{
-                  padding:{
-                    left: 20,
-                    right: 20,
-                    
-                    bottom: 20
-                  }
+                  font: { family: 'Lato, Helvetica, sans-serif', size: 20, weight: 'bold' }
                 }
               }
             }
           }
         });
+  
 
- 
+        // Button click listeners to change bar chart dataset
         const buttons = document.querySelectorAll('.frame button');
-        
-        function updateChartData(chart, data) {
-          chart.data.datasets[0].data = data;
-          chart.update();
+        function updateBarData(dataKey) {
+          barChart.data.datasets[0].data = chartData.bar[dataKey];
+          barChart.update();
         }
-       
+
         buttons.forEach(button => {
-          button.addEventListener('click', function () {
+          button.addEventListener('click', () => {
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             const chartType = button.getAttribute('data-chart');
-            let newData = [];
-            switch (chartType) {
-              case 'vegetables':
-              // (first number is the 2022, second is 2023, and third is 2024 )
-                newData = [10,15,12]; //INPUT DATA FOR VEGETABLES AS NEEDED 
-                break;
-              case 'peppers':
-                 // (first number is the 2022, second is 2023, and third is 2024 )
-                newData = [5, 8, 12]; //INPUT DATA FOR PEPPERS AS NEEDED
-                break;
-              case 'fruits':
-                 // (first number is the 2022, second is 2023, and third is 2024 )
-                newData = [12, 14, 16]; //INPUT DATA FOR FRUITS AS NEEDED
-                break;
-              case 'all':
-              default:
-                 // (first number is the 2022, second is 2023, and third is 2024 )
-                newData = [12, 19, 3]; //INPUT DATA FOR ALL AS NEEDED (MAKE SURE IT MATCHES THE ALL IN THE INITIAL DATA ABOVE)
-                break;
-            }
-            updateChartData(chart, newData);
+            updateBarData(chartType);
           });
         });
       });
+      const podiumButtons = document.querySelectorAll('.podium-tabs button'); 
+      const firstName = document.getElementById('first-name');
+      const secondName = document.getElementById('second-name');
+      const thirdName = document.getElementById('third-name');
+
+
+      function updatePodium(type) {
+        const data = podiumData[type];
+        firstName.textContent = data[0].name;
+        secondName.textContent = data[1].name;
+        thirdName.textContent = data[2].name;
+      }
+
+      podiumButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          podiumButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const type = btn.getAttribute('data-type');
+          updatePodium(type);
+        });
+      });
+      document.getElementById('year').textContent = year;
+      document.getElementById('servingsYear').textContent = year;
+      document.getElementById('plantedYear').textContent = year;
+      document.getElementById('servings').textContent = servings;
+      document.getElementById('harvested').textContent = harvested;
+      document.getElementById('grown').textContent = grown;
+      document.getElementById('planted').textContent = planted;
+      document.getElementById('servingsProvided').textContent = servingsProvided;
+      document.getElementById('fact1').textContent = fact1;
+      document.getElementById('fact2').textContent = fact2;
+      document.getElementById('fact3').textContent = fact3;
+
     </script>
   </body>
 </html>
