@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   </head>
   <body>
     <script>
@@ -33,7 +34,7 @@
           //FIRST
           { name: 'Sweet Potatoes'},
           //SECOND
-          { name: 'Jalepeno Peppers'},
+          { name: 'Jalapeño Peppers'},
           //THIRD
           { name: 'Poblano Peppers'}
         ],
@@ -65,12 +66,12 @@
         },
 
         //DATA FOR THE HISTOGRAM
-        bar: { // lbs harvest (2022, 2023, 2024); IN THOUSANDS
+        bar: { // lbs harvest (2022, 2023, 2024)
           //Place the values in order of 2022, 2023, and 2024
-          all: [12, 19, 3],        
-          vegetables: [10, 15, 12],
-          peppers: [5, 8, 12],
-          fruits: [12, 14, 16],
+          all: [12000, 19000, 3000],        
+          vegetables: [10000, 15000, 12000],
+          peppers: [5000, 8000, 12000],
+          fruits: [12000, 14000, 16000],
         }
       };
 
@@ -90,6 +91,7 @@
           <div class="overlap-wrapper">
             <div class="overlap-group">
                 <canvas id = "histogram" width = "800" height="800" style="border-radius: 15px;"></canvas>
+                <text class="hover">Hover over columns to see values.</text>
             </div>
           </div>
           
@@ -189,7 +191,6 @@
         <div class="overlap-7">
           <canvas id="doughnutChart" width="562" height="543"></canvas>
           <div class="CURRENT-PRODUCE">CURRENT<br />PRODUCE<br />DISTRIBUTION</div>
-          <div class="hover">Hover to see distribution</div>
         </div>
         <img class="line-18" src="https://c.animaapp.com/MS0A03wW/img/line-1.svg" />
         <div class="overlap-8">
@@ -214,7 +215,7 @@
         <img class="line-19" src="https://c.animaapp.com/MS0A03wW/img/line-2.svg" />
         <img class="line-20" src="https://c.animaapp.com/MS0A03wW/img/line-3.svg" />
         <div class="overlap-10">
-          <div class="text-wrapper-36"><span id = "grown"></span> lbs</div>
+          <div class="text-wrapper-36"><span id = "grown"></span>lbs</div>
           
         </div>
         <div class="overlap-11">
@@ -224,7 +225,6 @@
           <div class="text-wrapper-37"><span id = "planted"></span></div>
           <div class="text-wrapper-38">Over</div>
         </div>
-        
         <div class="text-wrapper-39">Over</div>
         <div class="overlap-13"><div class="text-wrapper-40"><span id = "servingsProvided"></span></div></div>
         <div class="overlap-14">
@@ -269,11 +269,19 @@
         const doughnutChart = new Chart(doughnutCtx, {
           type: 'doughnut',
           data: {
-            labels: chartData.doughnut.labels,
+            labels: ['Vegetables', 'Fruits', 'Peppers'],
             datasets: [{
-              data: chartData.doughnut.values,
-              backgroundColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 0.7)', 'rgba(66, 57, 46, 0.7)'],
-              borderColor: ['rgba(167, 157, 147, 0.7)', 'rgba(151, 155, 109, 1)', 'rgba(66, 57, 47, 0.7)'],
+              data: [50, 30, 20],               // your percentages
+              backgroundColor: [
+                '#a2c991',
+                'rgba(87, 87, 106, 1)',
+                'rgba(95, 137, 113, 1)'
+              ],
+              borderColor: [
+                '#abb482',
+                'rgba(87, 87, 106, 1)',
+                'rgba(95, 137, 113, 1)'
+              ],
               borderWidth: 1
             }]
           },
@@ -285,7 +293,7 @@
               legend: {
                 labels: {
                   font: {
-                    size: 20, // 👈 Increase this number to make it larger
+                    size: 25, // Increase this number to make it larger
                     family: 'Lato, Helvetica, sans-serif',
                     weight: 'bold'
                   }
@@ -293,16 +301,30 @@
               },
               tooltip: {
                 callbacks: {
-                  label: function(tooltipItem) {
-                    const total = tooltipItem.dataset.data.reduce((sum, val) => sum + val, 0);
-                    const value = tooltipItem.raw;
-                    const percentage = ((value / total) * 100).toFixed(2);
-                    return ` ${percentage}%`;
+                  label: function(ctx) {
+                    const total = ctx.dataset.data.reduce((sum, v) => sum + v, 0);
+                    return `${((ctx.raw / total) * 100).toFixed(1)}%`;
                   }
                 }
               },
+              // ← only for doughnut
+              datalabels: {
+                color: '#fff',
+                anchor: 'center',
+                align: 'center',
+                font: {
+                  weight: 'bold',
+                  size: 22
+                },
+                formatter: (value, ctx) => {
+                  const data = ctx.chart.data.datasets[0].data;
+                  const total = data.reduce((sum, v) => sum + v, 0);
+                  return ((value / total) * 100).toFixed(1) + '%';
+                }
+              }
             }
-          }
+          },
+          plugins: [ ChartDataLabels ]
         });
         
         
@@ -314,7 +336,7 @@
           data: {
             labels: chartYears,
             datasets: [{
-              label: 'lbs harvest, in thousands',
+              label: 'pounds harvested',
               data: chartData.bar.all,
               backgroundColor: 'rgba(107, 142, 35)',
             }]
@@ -349,7 +371,7 @@
                 }
               }
             }
-          }
+          },
         });
   
 
@@ -401,7 +423,6 @@
       document.getElementById('fact1').textContent = fact1;
       document.getElementById('fact2').textContent = fact2;
       document.getElementById('fact3').textContent = fact3;
-
     </script>
   </body>
 </html>

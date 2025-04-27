@@ -1131,10 +1131,13 @@
   font-size: 69px;
   letter-spacing: 0;
 }
-.main-page .hover{
-  position:relative;
-  font-family: "Lato", Helvetica;
-  left:190px;
-  bottom: 180px;
-}
 
+.overlap-group .hover {
+  position: relative;
+  color: #646464;
+  font-family: "Lato", Helvetica;
+  font-size: 23px;
+  font-weight:lighter;
+  top: 3%;
+  left: 280px;
+}
