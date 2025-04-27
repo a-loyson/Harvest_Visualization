@@ -170,15 +170,15 @@
               <!-- Podium Container where Produce will be displayed -->
               <div class="podium-container">
                 <div class="podium second">
-                  <div class="produce" id="second-name">Tomatoes</div>  <!-- This element will be updated by JS -->
+                  <div class="produce" id="second-name"></div>  <!-- This element will be updated by JS -->
                   <div class="place">2nd</div>
                 </div>
                 <div class="podium first">
-                  <div class="produce" id="first-name">Sweet Potatoes</div>  <!-- This element will be updated by JS -->
+                  <div class="produce" id="first-name"></div>  <!-- This element will be updated by JS -->
                   <div class="place">1st</div>
                 </div>
                 <div class="podium third">
-                  <div class="produce" id="third-name">Peppers</div>  <!-- This element will be updated by JS -->
+                  <div class="produce" id="third-name"></div>  <!-- This element will be updated by JS -->
                   <div class="place">3rd</div>
                 </div>
               </div>
@@ -412,6 +412,9 @@
           updatePodium(type);
         });
       });
+      updatePodium('lbs');
+      document.querySelector('.tab-lbs').classList.add('active');
+      document.querySelector('button[data-chart="all"]').classList.add('active');
       document.getElementById('year').textContent = year;
       document.getElementById('servingsYear').textContent = year;
       document.getElementById('plantedYear').textContent = year;
